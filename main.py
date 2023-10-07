@@ -2,40 +2,48 @@ import pygame, sys
 from pygame.locals import *
 
 from utils import *
-
-BLUE = (0, 0, 255)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-YELLOW = (255, 255, 0)
-
-SCREEN_SIZE = (600, 350)
+from game_data import *
+from levels import level1, level2
 
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
-pygame.display.set_caption('Dot Adventures!')
+font = pygame.font.Font('freesansbold.ttf', 15)
+pygame.display.set_caption('DotVenture!')
 screen.fill(BLACK)
 
-LEVEL_FAILED_FALL_SPEED = 4
+level = 1
+level_switch = True # is it time to switch levels
 
-MAX_JUMP_HEIGHT = 10
-cursor = reset_cursor()
-speed = {'x': 2, 'y': MAX_JUMP_HEIGHT}
-Y_ACCELERATION = 1
-
-platform1 = pygame.Rect(200, 250, 85, 5)
-platform2 = pygame.Rect(325, 250, 85, 5)
-target = pygame.Rect(0, 0, 20, 20)
-target.center = (420, 195)
-
-in_jump = False
-level_failed = False
-level_complete = False
 while True:
     screen.fill(BLACK)
+    
+    if level_switch:
+        print('level switching')
+        if level == 1:
+            cursor = level1.cursor.copy()
+            platforms = level1.platforms
+            target = level1.target
+            title = level1.title
+            directions = ""
+        elif level == 2:
+            cursor = level2.cursor.copy()
+            platforms = level2.platforms
+            target = level2.target
+            title = level2.title
 
-    pygame.draw.rect(screen, BLUE, platform1)
-    pygame.draw.rect(screen, BLUE, platform2)
+        level_complete = False
+        level_switch = False
+        level_title = "Level {} - {}".format(level, title)
+        level_score = font.render(str(level_title), True, WHITE)
+        level_score_rect = level_score.get_rect()
+        level_score_rect.topleft = (0, 0)
+        
+    for platform in platforms:
+        pygame.draw.rect(screen, BLUE, platform)
+        
+        
+    screen.blit(level_score, level_score_rect)
     pygame.draw.rect(screen, WHITE, cursor)
     pygame.draw.rect(screen, YELLOW, target)
         
@@ -43,7 +51,7 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
-            sys.exit()
+            exit()
         if event.type == MOUSEBUTTONDOWN:
             print(pygame.mouse.get_pos())
             pygame.draw.circle(screen, WHITE, pygame.mouse.get_pos(), 1)
@@ -51,19 +59,22 @@ while True:
             if event.key == K_UP:
                 in_jump = True
 
-    if not in_jump and not in_valid_range(cursor, platform1, platform2):
+    if not in_jump and not in_valid_range(cursor, *platforms):
         level_failed = True
 
     if cursor.colliderect(target):
         level_complete = True
-        print('you won!')
-        pygame.time.wait(1000)
+        print('you won')
+    
+    if level_complete:
+        level_switch = True
+        level += 1
 
     if level_failed:
         cursor.y += LEVEL_FAILED_FALL_SPEED
         if cursor.y > SCREEN_SIZE[1]:
             level_failed = False
-            cursor = reset_cursor()
+            cursor = level1.cursor.copy()
 
     keys = pygame.key.get_pressed()
     if keys[K_RIGHT]:
@@ -80,8 +91,6 @@ while True:
             in_jump = False
             speed['y'] = MAX_JUMP_HEIGHT
             
-            
-        
 
-    clock.tick(100)
+    clock.tick(70)
     pygame.display.update()
