@@ -2,16 +2,19 @@ import pygame
 from game_data import SCREEN_SIZE
 
 
-x = pygame.Rect(0, 0, 85, 5)
-x.center = (SCREEN_SIZE[0]//2, 275)
+
 platforms = [
-    pygame.Rect(200, 155, 85, 5),
-    x
+    pygame.Rect(430, 280, 85, 5),
+    pygame.Rect(200, 250, 85, 5),
+    pygame.Rect(325, 250, 85, 5),
+    pygame.Rect(60, 295, 85, 5),
+    pygame.Rect(165, 215, 85, 5),
+    pygame.Rect(220, 175, 85, 5)
 ]
 
 cursor = pygame.Rect(210, 148, 8, 8)
 
 target = pygame.Rect(0, 0, 20, 20)
-target.center = (SCREEN_SIZE[0]//2+80, 300)
+target.center = (340, 125)
 
-title = "Fearless Drop"
+title = "Blazing Fury"

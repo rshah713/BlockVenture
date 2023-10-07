@@ -17,9 +17,13 @@ cursor_state = None
 level = 1
 level_switch = True # is it time to switch levels
 
+test = False # flag when developing
+prev_test_coord = None
+
 
 while True:
-    screen.fill(BLACK)
+    if not test:
+        screen.fill(BLACK)
     
     if level_switch:
         print('level switching')
@@ -79,8 +83,16 @@ while True:
             pygame.quit()
             exit()
         if event.type == MOUSEBUTTONDOWN:
-            print(pygame.mouse.get_pos())
-            pygame.draw.circle(screen, WHITE, pygame.mouse.get_pos(), 1)
+            if test:
+                pos = pygame.mouse.get_pos()
+                print(pos)
+                if prev_test_coord is None:
+                    prev_test_coord = pos
+                else:
+                    pygame.draw.line(screen, WHITE, prev_test_coord, pos, 3)
+                    prev_test_coord = None
+                    print()
+                pygame.draw.circle(screen, WHITE, pos, 3)
         if event.type == KEYDOWN:
             if event.key == K_UP:
                 in_jump = True
