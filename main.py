@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from utils import *
 from game_data import *
-from levels import level1, level2, level3
+from levels import level1, level2, level3, level4
 
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
@@ -16,7 +16,6 @@ screen.fill(BLACK)
 cursor_state = None
 level = 1
 level_switch = True # is it time to switch levels
-
 
 
 while True:
@@ -45,6 +44,13 @@ while True:
             platforms = level3.platforms
             target = level3.target
             title = level3.title
+            directions = ""
+        elif level == 4:
+            cursor = level4.cursor.copy()
+            cursor_state = level4.cursor.copy()
+            platforms = level4.platforms
+            target = level4.target
+            title = level4.title
             directions = ""
 
         level_complete = False
@@ -115,7 +121,9 @@ while True:
         if speed['y'] < -MAX_JUMP_HEIGHT:
             in_jump = False
             speed['y'] = MAX_JUMP_HEIGHT
-            
+        if in_valid_range(cursor, *platforms):
+            in_jump = False
+            level_failed = False
 
     clock.tick(70)
     pygame.display.update()
