@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from utils import *
 from game_data import *
-from levels import level1, level2
+from levels import level1, level2, level3
 
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
@@ -13,8 +13,11 @@ smaller_font = pygame.font.Font('freesansbold.ttf', 12)
 pygame.display.set_caption('DotVenture!')
 screen.fill(BLACK)
 
+cursor_state = None
 level = 1
 level_switch = True # is it time to switch levels
+
+
 
 while True:
     screen.fill(BLACK)
@@ -23,6 +26,7 @@ while True:
         print('level switching')
         if level == 1:
             cursor = level1.cursor.copy()
+            cursor_state = level1.cursor.copy()
             platforms = level1.platforms
             target = level1.target
             title = level1.title
@@ -30,9 +34,17 @@ while True:
             
         elif level == 2:
             cursor = level2.cursor.copy()
+            cursor_state = level2.cursor.copy()
             platforms = level2.platforms
             target = level2.target
             title = level2.title
+            directions = ""
+        elif level == 3:
+            cursor = level3.cursor.copy()
+            cursor_state = level3.cursor.copy()
+            platforms = level3.platforms
+            target = level3.target
+            title = level3.title
             directions = ""
 
         level_complete = False
@@ -72,17 +84,22 @@ while True:
 
     if cursor.colliderect(target):
         level_complete = True
+        level_failed = False
         print('you won')
     
     if level_complete:
         level_switch = True
         level += 1
+        level_failed = False
 
     if level_failed:
         cursor.y += LEVEL_FAILED_FALL_SPEED
         if cursor.y > SCREEN_SIZE[1]:
             level_failed = False
-            cursor = level1.cursor.copy()
+            cursor = cursor_state.copy()
+        # constantly check if we hit another platform
+        if in_valid_range(cursor, *platforms):
+            level_failed = False
 
     keys = pygame.key.get_pressed()
     if keys[K_RIGHT]:
