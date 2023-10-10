@@ -96,6 +96,8 @@ while True:
         if event.type == KEYDOWN:
             if event.key == K_UP:
                 in_jump = True
+            if event.key == K_d:
+                test = not test
 
     if not in_jump and not in_valid_range(cursor, *platforms):
         level_failed = True
