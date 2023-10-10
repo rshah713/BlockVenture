@@ -26,7 +26,6 @@ while True:
         screen.fill(BLACK)
     
     if level_switch:
-        print('level switching')
         if level == 1:
             cursor = level1.cursor.copy()
             cursor_state = level1.cursor.copy()
@@ -119,6 +118,7 @@ while True:
             cursor = cursor_state.copy()
         # constantly check if we hit another platform
         if in_valid_range(cursor, *platforms):
+#             calibrate_cursor(cursor, *platforms)
             level_failed = False
 
     keys = pygame.key.get_pressed()
@@ -135,7 +135,11 @@ while True:
         if speed['y'] < -MAX_JUMP_HEIGHT:
             in_jump = False
             speed['y'] = MAX_JUMP_HEIGHT
-        if in_valid_range(cursor, *platforms):
+            calibrate_cursor(cursor, *platforms)
+         # for smoother jump animation, let it catch the platform only on the way down (speed < 0)
+        if speed['y'] < 0 and in_valid_range(cursor, *platforms):
+            calibrate_cursor(cursor, *platforms)
+            speed['y'] = MAX_JUMP_HEIGHT
             in_jump = False
             level_failed = False
 
