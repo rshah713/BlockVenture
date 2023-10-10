@@ -16,3 +16,7 @@ def calibrate_cursor(cursor, *platforms):
         if cursor.colliderect(platform):
             cursor.bottom = platform.top -2
             return
+        
+        
+def control_lava_monster(m):
+    pass

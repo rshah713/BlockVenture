@@ -32,6 +32,7 @@ while True:
             platforms = level1.platforms
             target = level1.target
             title = level1.title
+            monsters = level1.monsters
             directions = "Arrow keys to move and jump"
             
         elif level == 2:
@@ -40,6 +41,7 @@ while True:
             platforms = level2.platforms
             target = level2.target
             title = level2.title
+            monsters = level2.monsters
             directions = ""
         elif level == 3:
             cursor = level3.cursor.copy()
@@ -47,14 +49,14 @@ while True:
             platforms = level3.platforms
             target = level3.target
             title = level3.title
-            directions = ""
+            monsters = level3.monsters
         elif level == 4:
             cursor = level4.cursor.copy()
             cursor_state = level4.cursor.copy()
             platforms = level4.platforms
             target = level4.target
             title = level4.title
-            directions = ""
+            monsters = level4.monsters
 
         level_complete = False
         level_switch = False
@@ -70,6 +72,8 @@ while True:
         
     for platform in platforms:
         pygame.draw.rect(screen, BLUE, platform)
+    
+    control_lava_monster(monsters)
         
     screen.blit(directions_text, directions_text_rect)
     screen.blit(level_score, level_score_rect)
@@ -118,7 +122,6 @@ while True:
             cursor = cursor_state.copy()
         # constantly check if we hit another platform
         if in_valid_range(cursor, *platforms):
-#             calibrate_cursor(cursor, *platforms)
             level_failed = False
 
     keys = pygame.key.get_pressed()
