@@ -73,7 +73,7 @@ while True:
     for platform in platforms:
         pygame.draw.rect(screen, BLUE, platform)
     
-    control_lava_monster(monsters)
+    control_lava_monster(monsters, screen)
         
     screen.blit(directions_text, directions_text_rect)
     screen.blit(level_score, level_score_rect)

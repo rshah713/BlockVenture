@@ -18,5 +18,9 @@ def calibrate_cursor(cursor, *platforms):
             return
         
         
-def control_lava_monster(m):
-    pass
+def control_lava_monster(m, screen):
+    
+    for monster in m:  
+        monster.move()
+        pygame.draw.rect(screen, (255, 0, 0), monster.get_monster())
+        

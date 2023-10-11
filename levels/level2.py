@@ -10,6 +10,6 @@ cursor = pygame.Rect(210, 148, 8, 8)
 target = pygame.Rect(0, 0, 20, 20)
 target.center = (SCREEN_SIZE[0]//2, 300)
 
-monsters = [None]
+monsters = []
 
 title = "Fearless Drop"

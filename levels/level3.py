@@ -1,5 +1,6 @@
 import pygame
 from game_data import SCREEN_SIZE
+from Monsters import Monster
 
 
 platforms = [
@@ -16,6 +17,6 @@ cursor = pygame.Rect(500, 270, 8, 8)
 target = pygame.Rect(0, 0, 20, 20)
 target.center = (340, 125)
 
-monsters = [None]
+monsters = [Monster('lava')]
 
 title = "Blazing Fury"
