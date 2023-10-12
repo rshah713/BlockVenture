@@ -19,8 +19,13 @@ class Monster:
             self.speed = self.jump_height if self.speed is None else self.speed
             self.acceleration = 1 if self.acceleration is None else self.acceleration
             self.monster = pygame.Rect(*self.pos, *self.size)
+            
     def get_monster(self):
         return self.monster
+    
+    def center_on_platform(self, platform):
+        self.monster.midbottom = platform.midtop
+        return self
     
     def move(self):
         if self.m_type == 'lava':
