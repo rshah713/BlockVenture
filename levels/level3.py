@@ -18,5 +18,6 @@ target = pygame.Rect(0, 0, 20, 20)
 target.center = (340, 125)
 
 monsters = [Monster('lava').center_on_platform(platforms[2])]
+# monsters = [Monster('lava')]
 
 title = "Blazing Fury"

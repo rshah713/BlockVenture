@@ -20,7 +20,6 @@ level_switch = True # is it time to switch levels
 test = False # flag when developing
 prev_test_coord = None
 
-
 while True:
     if not test:
         screen.fill(BLACK)
@@ -101,7 +100,7 @@ while True:
                 in_jump = True
             if event.key == K_d:
                 test = not test
-
+  
     if not in_jump and not in_valid_range(cursor, *platforms):
         level_failed = True
 
@@ -146,5 +145,5 @@ while True:
             in_jump = False
             level_failed = False
 
-    clock.tick(70)
+    clock.tick(FPS)
     pygame.display.update()
