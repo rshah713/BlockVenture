@@ -24,3 +24,10 @@ def control_lava_monster(m, screen):
         monster.move()
         pygame.draw.rect(screen, (255, 0, 0), monster.get_monster())
         
+        
+def check_monster_hit(cursor, monsters):
+    for monster in monsters:
+        if monster.get_monster().colliderect(cursor):
+            return True
+    return False
+        

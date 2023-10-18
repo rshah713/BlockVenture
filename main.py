@@ -73,6 +73,8 @@ while True:
         pygame.draw.rect(screen, BLUE, platform)
     
     control_lava_monster(monsters, screen)
+    if check_monster_hit(cursor, monsters):
+        cursor = cursor_state.copy()
         
     screen.blit(directions_text, directions_text_rect)
     screen.blit(level_score, level_score_rect)
