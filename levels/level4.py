@@ -1,22 +1,17 @@
 import pygame
+from utils import start_on_platform
 from game_data import SCREEN_SIZE
+from Monsters import Monster
 
-
-x = pygame.Rect(0, 0, 85, 5)
-x.center = (SCREEN_SIZE[0]//2, 275)
-
-y = x.copy()
-y.center = (SCREEN_SIZE[0]//2-85, 275-10)
 platforms = [
-    pygame.Rect(200, 155, 85, 5),
-    x, y
+    pygame.Rect(200, 215, 85, 5),
+    pygame.Rect(300, 170, 125, 5)
 ]
 
-cursor = pygame.Rect(210, 148, 8, 8)
+cursor = start_on_platform(platforms[0])
 
-target = pygame.Rect(0, 0, 20, 20)
-target.center = (SCREEN_SIZE[0]//2, 300)
+target = pygame.Rect(265, 125, 20, 20)
 
-monsters = []
+monsters = [Monster('tiger', platform=platforms[1])]
 
-title = "Blazing Fury"
+title = "Wild Tiger"
