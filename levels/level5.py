@@ -12,6 +12,7 @@ platforms = [
 cursor = start_on_platform(platforms[0])
 
 target = pygame.Rect(265, 125, 20, 20)
+platform_switch = pygame.Rect(450, 190, 20, 20)
 
 monsters = [Monster('flyer', pos=(260,130), range_y=170)]
 

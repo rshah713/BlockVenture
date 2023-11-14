@@ -16,6 +16,7 @@ screen.fill(BLACK)
 cursor_state = None
 level = 1
 level_switch = True # is it time to switch levels
+switch = False
 
 test = False # flag when developing
 prev_test_coord = None
@@ -30,6 +31,7 @@ while True:
             cursor_state = level1.cursor.copy()
             platforms = level1.platforms
             target = level1.target
+            platform_switch = level1.platform_switch
             title = level1.title
             monsters = level1.monsters
             directions = "Arrow keys to move and jump"
@@ -39,6 +41,7 @@ while True:
             cursor_state = level2.cursor.copy()
             platforms = level2.platforms
             target = level2.target
+            platform_switch = level2.platform_switch
             title = level2.title
             monsters = level2.monsters
             directions = ""
@@ -47,6 +50,7 @@ while True:
             cursor_state = level3.cursor.copy()
             platforms = level3.platforms
             target = level3.target
+            platform_switch = level3.platform_switch
             title = level3.title
             monsters = level3.monsters
         elif level == 4:
@@ -54,6 +58,7 @@ while True:
             cursor_state = level4.cursor.copy()
             platforms = level4.platforms
             target = level4.target
+            platform_switch = level4.platform_switch
             title = level4.title
             monsters = level4.monsters
         elif level == 5:
@@ -61,8 +66,10 @@ while True:
             cursor_state = level5.cursor.copy()
             platforms = level5.platforms
             target = level5.target
+            platform_switch = level5.platform_switch
             title = level5.title
             monsters = level5.monsters
+            
 
         level_complete = False
         level_switch = False
@@ -76,8 +83,15 @@ while True:
         level_score_rect = level_score.get_rect()
         level_score_rect.topleft = (0, 0)
         
-    for platform in platforms:
-        pygame.draw.rect(screen, BLUE, platform)
+        
+    if not switch:
+        for platform in platforms:
+            pygame.draw.rect(screen, BLUE, platform)
+        pygame.draw.rect(screen, GREEN, platform_switch)
+        switch = check_platform_switch(cursor, platform_switch)
+    elif switch:
+        for platform in platforms:
+            pygame.draw.rect(screen, GREEN, platform)
     
     control_lava_monster(monsters, screen)
     if check_monster_hit(cursor, monsters):
@@ -87,6 +101,7 @@ while True:
     screen.blit(level_score, level_score_rect)
     pygame.draw.rect(screen, WHITE, cursor)
     pygame.draw.rect(screen, YELLOW, target)
+    
         
 
     for event in pygame.event.get():
@@ -122,12 +137,14 @@ while True:
         level_switch = True
         level += 1
         level_failed = False
+        switch = False
 
     if level_failed:
         cursor.y += LEVEL_FAILED_FALL_SPEED
         if cursor.y > SCREEN_SIZE[1]:
             level_failed = False
             cursor = cursor_state.copy()
+            switch = False
         # constantly check if we hit another platform
         if in_valid_range(cursor, *platforms):
             level_failed = False

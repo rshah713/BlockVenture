@@ -46,3 +46,11 @@ def start_on_platform(platform):
     cursor.midbottom = platform.midtop
     return cursor
         
+    
+def check_platform_switch(cursor, p_switch):
+    '''
+    check whether its time to switch onto green platforms
+    '''
+    if p_switch.topleft == (0,0):
+        return False # costly to do colliderect when we know it fails
+    return cursor.colliderect(p_switch)

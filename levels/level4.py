@@ -11,6 +11,7 @@ platforms = [
 cursor = start_on_platform(platforms[0])
 
 target = pygame.Rect(265, 125, 20, 20)
+platform_switch = pygame.Rect(0, 0, 0, 0)
 
 monsters = [Monster('tiger', platform=platforms[1])]
 

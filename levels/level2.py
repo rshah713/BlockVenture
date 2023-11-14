@@ -6,6 +6,7 @@ platforms = [
 ]
 
 cursor = pygame.Rect(210, 148, 8, 8)
+platform_switch = pygame.Rect(0, 0, 0, 0)
 
 target = pygame.Rect(0, 0, 20, 20)
 target.center = (SCREEN_SIZE[0]//2, 300)
