@@ -27,6 +27,7 @@ while True:
     
     if level_switch:
         if level == 1:
+            lev = level1
             cursor = level1.cursor.copy()
             cursor_state = level1.cursor.copy()
             platforms = level1.platforms
@@ -37,6 +38,7 @@ while True:
             directions = "Arrow keys to move and jump"
             
         elif level == 2:
+            lev = level2
             cursor = level2.cursor.copy()
             cursor_state = level2.cursor.copy()
             platforms = level2.platforms
@@ -46,6 +48,7 @@ while True:
             monsters = level2.monsters
             directions = ""
         elif level == 3:
+            lev = level3
             cursor = level3.cursor.copy()
             cursor_state = level3.cursor.copy()
             platforms = level3.platforms
@@ -54,6 +57,7 @@ while True:
             title = level3.title
             monsters = level3.monsters
         elif level == 4:
+            lev = level4
             cursor = level4.cursor.copy()
             cursor_state = level4.cursor.copy()
             platforms = level4.platforms
@@ -62,6 +66,7 @@ while True:
             title = level4.title
             monsters = level4.monsters
         elif level == 5:
+            lev = level5
             cursor = level5.cursor.copy()
             cursor_state = level5.cursor.copy()
             platforms = level5.platforms
@@ -88,7 +93,7 @@ while True:
         for platform in platforms:
             pygame.draw.rect(screen, BLUE, platform)
         pygame.draw.rect(screen, GREEN, platform_switch)
-        switch, platforms = check_platform_switch(cursor, platform_switch, platforms, platforms)
+        switch, platforms = check_platform_switch(cursor, platform_switch, platforms, lev)
     elif switch:
         for platform in platforms:
             pygame.draw.rect(screen, GREEN, platform)

@@ -8,6 +8,7 @@ platforms = [
     pygame.Rect(280, 280, 85, 5),
     pygame.Rect(400, 255, 85, 5)
 ]
+green_platforms = platforms
 
 cursor = start_on_platform(platforms[0])
 
