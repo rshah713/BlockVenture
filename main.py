@@ -150,6 +150,7 @@ while True:
             level_failed = False
             cursor = cursor_state.copy()
             switch = False
+            platforms = lev.platforms
         # constantly check if we hit another platform
         if in_valid_range(cursor, *platforms):
             level_failed = False
