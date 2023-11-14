@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from utils import *
 from game_data import *
-from levels import level1, level2, level3, level4
+from levels import level1, level2, level3, level4, level5
 
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
@@ -56,6 +56,13 @@ while True:
             target = level4.target
             title = level4.title
             monsters = level4.monsters
+        elif level == 5:
+            cursor = level5.cursor.copy()
+            cursor_state = level5.cursor.copy()
+            platforms = level5.platforms
+            target = level5.target
+            title = level5.title
+            monsters = level5.monsters
 
         level_complete = False
         level_switch = False
