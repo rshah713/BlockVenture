@@ -88,7 +88,7 @@ while True:
         for platform in platforms:
             pygame.draw.rect(screen, BLUE, platform)
         pygame.draw.rect(screen, GREEN, platform_switch)
-        switch = check_platform_switch(cursor, platform_switch)
+        switch, platforms = check_platform_switch(cursor, platform_switch, platforms, platforms)
     elif switch:
         for platform in platforms:
             pygame.draw.rect(screen, GREEN, platform)
