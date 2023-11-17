@@ -6,7 +6,7 @@ from Monsters import Monster
 platforms = [
     pygame.Rect(160, 255, 85, 5),
     pygame.Rect(280, 280, 85, 5),
-    pygame.Rect(400, 255, 85, 5)
+    pygame.Rect(395, 255, 85, 5)
 ]
 green_platforms = [
     pygame.Rect(400, 240, 85, 5),

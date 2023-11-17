@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from utils import *
 from game_data import *
-from levels import level1, level2, level3, level4, level5
+from levels import level1, level2, level3, level4, level5, level6
 
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
@@ -14,7 +14,7 @@ pygame.display.set_caption('DotVenture!')
 screen.fill(BLACK)
 
 cursor_state = None
-level = 1
+level = 5
 level_switch = True # is it time to switch levels
 switch = False
 
@@ -36,7 +36,6 @@ while True:
             title = level1.title
             monsters = level1.monsters
             directions = "Arrow keys to move and jump"
-            
         elif level == 2:
             lev = level2
             cursor = level2.cursor.copy()
@@ -74,6 +73,16 @@ while True:
             platform_switch = level5.platform_switch
             title = level5.title
             monsters = level5.monsters
+            directions = ""
+        elif level == 6:
+            lev = level6
+            cursor = level6.cursor.copy()
+            cursor_state = level6.cursor.copy()
+            platforms = level6.platforms
+            target = level6.target
+            platform_switch = level6.platform_switch
+            title = level6.title
+            monsters = level6.monsters
             
 
         level_complete = False
