@@ -17,6 +17,7 @@ cursor_state = None
 level = 5
 level_switch = True # is it time to switch levels
 switch = False
+monster_hit = False
 
 test = False # flag when developing
 prev_test_coord = None
@@ -109,7 +110,9 @@ while True:
     
     control_lava_monster(monsters, screen)
     if check_monster_hit(cursor, monsters):
-        cursor = cursor_state.copy()
+#         cursor = cursor_state.copy()
+        level_failed = True
+        monster_hit = True
         
     screen.blit(directions_text, directions_text_rect)
     screen.blit(level_score, level_score_rect)
@@ -155,11 +158,12 @@ while True:
 
     if level_failed:
         cursor.y += LEVEL_FAILED_FALL_SPEED
-        if cursor.y > SCREEN_SIZE[1]:
+        if cursor.y > SCREEN_SIZE[1] or monster_hit:
             level_failed = False
             cursor = cursor_state.copy()
             switch = False
             platforms = lev.platforms
+            monster_hit = False
         # constantly check if we hit another platform
         if in_valid_range(cursor, *platforms):
             level_failed = False
