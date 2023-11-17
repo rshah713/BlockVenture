@@ -14,7 +14,7 @@ pygame.display.set_caption('DotVenture!')
 screen.fill(BLACK)
 
 cursor_state = None
-level = 5
+level = 1
 level_switch = True # is it time to switch levels
 switch = False
 monster_hit = False
