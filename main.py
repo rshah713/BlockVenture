@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from utils import *
 from game_data import *
-from levels import level1, level2, level3, level4, level5, level6
+from levels import level1, level2, level3, level4, level5, level6, level7
 
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
@@ -19,12 +19,42 @@ level_switch = True # is it time to switch levels
 switch = False
 monster_hit = False
 
+start_menu = True
+offset = 10
+font = pygame.font.Font('freesansbold.ttf', 20)
+begin_font = pygame.font.Font('freesansbold.ttf', 35)
+game_ttl = font.render('BlockVenture', True, BLACK)
+game_ttl_r = game_ttl.get_rect()
+game_ttl_r.center = (SCREEN_SIZE[0]//2+SCREEN_SIZE[0]//16, 100)
+begin_btn = begin_font.render("[BEGIN]", True, WHITE)
+begin_btn_r = begin_btn.get_rect()
+begin_btn_r.center = (SCREEN_SIZE[0]//2, SCREEN_SIZE[1]//2+SCREEN_SIZE[1]//10)
+
+
 test = False # flag when developing
 prev_test_coord = None
+
+
 
 while True:
     if not test:
         screen.fill(BLACK)
+    
+    if start_menu:
+        pygame.draw.polygon(screen, YELLOW, ((220, 55-offset), (220, 105-offset), (165, 105-offset), (165, 120-offset), 
+                                             (220, 120-offset), (220, 165-offset), (230, 165-offset), (245,130-offset), 
+                                             (420+10, 130-offset), (455+10, 110-offset),(420+10, 90-offset), 
+                                             (245, 90-offset), (230, 55-offset)))
+        screen.blit(game_ttl, game_ttl_r)
+        screen.blit(begin_btn, begin_btn_r)
+        
+        for event in pygame.event.get():
+            if event.type == MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                if begin_btn_r.collidepoint(pos):
+                    start_menu = False
+        pygame.display.update()
+        continue
     
     if level_switch:
         if level == 1:
@@ -84,6 +114,7 @@ while True:
             platform_switch = level6.platform_switch
             title = level6.title
             monsters = level6.monsters
+
             
 
         level_complete = False
