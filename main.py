@@ -8,7 +8,6 @@ from levels import level1, level2, level3, level4, level5, level6, level7
 pygame.init()
 screen = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
-font = pygame.font.Font('freesansbold.ttf', 15)
 smaller_font = pygame.font.Font('freesansbold.ttf', 12)
 pygame.display.set_caption('DotVenture!')
 screen.fill(BLACK)
@@ -21,34 +20,33 @@ monster_hit = False
 
 start_menu = True
 offset = 10
+offset_x = -10
 font = pygame.font.Font('freesansbold.ttf', 20)
-begin_font = pygame.font.Font('freesansbold.ttf', 35)
-game_ttl = font.render('BlockVenture', True, BLACK)
+title_font = pygame.font.Font('assets/ARCADECLASSIC.TTF', 30)
+begin_font = pygame.font.Font('assets/ARCADECLASSIC.TTF', 35)
+game_ttl = title_font.render('BlockVenture', True, BLACK)
 game_ttl_r = game_ttl.get_rect()
-game_ttl_r.center = (SCREEN_SIZE[0]//2+SCREEN_SIZE[0]//16, 100)
+game_ttl_r.center = ((SCREEN_SIZE[0]//2+SCREEN_SIZE[0]//16)+offset_x, 100)
 begin_btn = begin_font.render("[BEGIN]", True, WHITE)
 begin_btn_r = begin_btn.get_rect()
 begin_btn_r.center = (SCREEN_SIZE[0]//2, SCREEN_SIZE[1]//2+SCREEN_SIZE[1]//10)
 
-
 test = False # flag when developing
 prev_test_coord = None
-
-
 
 while True:
     if not test:
         screen.fill(BLACK)
     
     if start_menu:
-        pygame.draw.polygon(screen, YELLOW, ((220, 55-offset), (220, 105-offset), (165, 105-offset), (165, 120-offset), 
-                                             (220, 120-offset), (220, 165-offset), (230, 165-offset), (245,130-offset), 
-                                             (420+10, 130-offset), (455+10, 110-offset),(420+10, 90-offset), 
-                                             (245, 90-offset), (230, 55-offset)))
+        pygame.draw.polygon(screen, YELLOW, ((220+offset_x, 55-offset), (220+offset_x, 105-offset), (165+offset_x, 105-offset), (165+offset_x, 120-offset), (220+offset_x, 120-offset), (220+offset_x, 165-offset), (230+offset_x, 165-offset), (245+offset_x,130-offset), (430+offset_x, 130-offset), (465+offset_x, 110-offset),(430+offset_x, 90-offset), (245+offset_x, 90-offset), (230+offset_x, 55-offset)))
         screen.blit(game_ttl, game_ttl_r)
         screen.blit(begin_btn, begin_btn_r)
         
         for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
             if event.type == MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 if begin_btn_r.collidepoint(pos):
@@ -114,8 +112,15 @@ while True:
             platform_switch = level6.platform_switch
             title = level6.title
             monsters = level6.monsters
-
-            
+        elif level == 7:
+            lev = level7
+            cursor = level7.cursor.copy()
+            cursor_state = level7.cursor.copy()
+            platforms = level7.platforms
+            target = level7.target
+            platform_switch = level7.platform_switch
+            title = level7.title
+            monsters = level7.monsters
 
         level_complete = False
         level_switch = False
@@ -128,8 +133,7 @@ while True:
         level_score = font.render(level_title, True, WHITE)
         level_score_rect = level_score.get_rect()
         level_score_rect.topleft = (0, 0)
-        
-        
+           
     if not switch:
         for platform in platforms:
             pygame.draw.rect(screen, BLUE, platform)
@@ -150,7 +154,6 @@ while True:
     pygame.draw.rect(screen, WHITE, cursor)
     pygame.draw.rect(screen, YELLOW, target)
     
-        
 
     for event in pygame.event.get():
         if event.type == QUIT:
